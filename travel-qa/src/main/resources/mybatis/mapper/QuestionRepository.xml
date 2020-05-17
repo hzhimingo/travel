@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiming.travel.qa.repository.QuestionRepository">
+    <insert id="insert">
+        insert into t_question (question_id, title, content, author)
+        value (#{questionId}, #{title}, #{content}, #{author})
+  </insert>
+    <select id="selectQuestionCovers" resultType="com.zhiming.travel.qa.domain.QuestionDO">
+        select question_id, title from t_question
+        <where>
+            <if test="record.status != null">
+                status = #{record.status}
+            </if>
+            <if test="record.isDelete != null">
+                and is_delete = #{record.isDelete}
+            </if>
+        </where>
+        LIMIT #{boundary}, #{offset}
+    </select>
+    <select id="selectQuestionById" resultType="com.zhiming.travel.qa.domain.QuestionDO">
+        select * from t_question where question_id = #{questionId} and is_delete = 0
+    </select>
+</mapper>

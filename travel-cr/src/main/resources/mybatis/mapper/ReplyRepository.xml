@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiming.travel.cr.repository.ReplyRepository">
+
+  <insert id="insertNewReply" parameterType="com.zhiming.travel.cr.domain.ReplyDO">
+    insert into t_reply (reply_id, content, author, reply_to, comment)
+    value (#{replyId}, #{content}, #{author}, #{replyTo}, #{comment})
+  </insert>
+    <select id="selectReplyByCommentId" resultType="com.zhiming.travel.cr.domain.ReplyDO">
+      select * from t_reply where comment = #{commentId}
+    </select>
+</mapper>

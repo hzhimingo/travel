@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiming.travel.thumbup.repository.ThumbUpRepository">
+    <insert id="insertNewThumbUp">
+        insert into t_thumb_up (thumb_up_user, service_business_id)
+        value (#{userId}, #{serviceBusinessId})
+    </insert>
+    <delete id="deleteThumbUp">
+        delete from t_thumb_up where thumb_up_user = #{userId} and service_business_id = #{serviceBusinessId}
+    </delete>
+    <select id="countThumbUpNum" resultType="java.lang.Integer">
+        select count(*) from t_thumb_up where service_business_id = #{serviceBusinessId}
+    </select>
+    <select id="selectIsUserThumbUp" resultType="java.lang.Integer">
+        select count(*) from t_thumb_up where service_business_id = #{serviceBusinessId} and thumb_up_user = #{userId}
+    </select>
+</mapper>

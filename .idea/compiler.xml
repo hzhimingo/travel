@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="travel-sms" />
+        <module name="travel-cr" />
+        <module name="travel-topic" />
+        <module name="travel-thumb-up" />
+        <module name="travel-moment" />
+        <module name="travel-user" />
+        <module name="travel-spot" />
+        <module name="travel-eureka" />
+        <module name="travel-qa" />
+        <module name="travel-picture" />
+        <module name="travel-oauth" />
+        <module name="travel-gateway" />
+        <module name="travel-collect" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="travel-id" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="travel-api" options="-parameters" />
+      <module name="travel-collect" options="-parameters" />
+      <module name="travel-common" options="-parameters" />
+      <module name="travel-cr" options="-parameters" />
+      <module name="travel-eureka" options="-parameters" />
+      <module name="travel-gateway" options="-parameters" />
+      <module name="travel-id" options="-parameters" />
+      <module name="travel-moment" options="-parameters" />
+      <module name="travel-oauth" options="-parameters" />
+      <module name="travel-picture" options="-parameters" />
+      <module name="travel-qa" options="-parameters" />
+      <module name="travel-sms" options="-parameters" />
+      <module name="travel-spot" options="-parameters" />
+      <module name="travel-thumb-up" options="-parameters" />
+      <module name="travel-topic" options="-parameters" />
+      <module name="travel-user" options="-parameters" />
+    </option>
+  </component>
+</project>

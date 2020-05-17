@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiming.travel.spot.repository.SpotTypeRepository">
+    <resultMap id="BaseResultMap" type="com.zhiming.travel.spot.domain.SpotTypeDO">
+        <id column="spot_type_id" jdbcType="INTEGER" property="spotTypeId"/>
+        <result column="type_name" jdbcType="VARCHAR" property="typeName"/>
+        <result column="status" jdbcType="BOOLEAN" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    spot_type_id, type_name, `status`, create_time, update_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_spot_type
+        where spot_type_id = #{spotTypeId,jdbcType=INTEGER}
+    </select>
+    <select id="isSpotTypeExist" resultType="java.lang.Integer">
+      select count(spot_type_id) from t_spot_type where spot_type_id = #{spotTypeId}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_spot_type
+    where spot_type_id = #{spotTypeId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" keyColumn="spot_type_id" keyProperty="spotTypeId"
+            parameterType="com.zhiming.travel.spot.domain.SpotTypeDO" useGeneratedKeys="true">
+    insert into t_spot_type (type_name, `status`, create_time, 
+      update_time)
+    values (#{typeName,jdbcType=VARCHAR}, #{status,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" keyColumn="spot_type_id" keyProperty="spotTypeId"
+            parameterType="com.zhiming.travel.spot.domain.SpotTypeDO" useGeneratedKeys="true">
+        insert into t_spot_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="typeName != null">
+                type_name,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="typeName != null">
+                #{typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BOOLEAN},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhiming.travel.spot.domain.SpotTypeDO">
+        update t_spot_type
+        <set>
+            <if test="typeName != null">
+                type_name = #{typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=BOOLEAN},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where spot_type_id = #{spotTypeId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zhiming.travel.spot.domain.SpotTypeDO">
+    update t_spot_type
+    set type_name = #{typeName,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where spot_type_id = #{spotTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

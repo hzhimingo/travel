@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiming.travel.collect.repository.CollectRepository">
+  <insert id="insertCollect" parameterType="com.zhiming.travel.collect.domain.CollectDO">
+    insert into t_collect (collect_id, collect_user, service_business_id, `type`)
+    value (#{collectId}, #{collectUser}, #{serviceBusinessId}, #{type})
+  </insert>
+  <delete id="deleteCollect">
+    delete from t_collect where collect_user = #{userId} and service_business_id = #{serviceBusinessId}
+  </delete>
+  <select id="selectCountCollect" resultType="java.lang.Integer">
+    select count(collect_id) from t_collect where service_business_id = #{serviceBusinessId}
+  </select>
+    <select id="selectIsCollect" resultType="java.lang.Integer">
+      select count(collect_id) from t_collect where collect_user = #{userId} and service_business_id = #{serviceBusinessId}
+    </select>
+</mapper>

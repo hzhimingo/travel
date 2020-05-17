@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiming.travel.cr.repository.CommentRepository">
+
+  <insert id="insertNewComment">
+    insert into t_comment (comment_id, content, author, service_business_id)
+    value (#{commentId}, #{content}, #{author}, #{serviceBusinessId})
+  </insert>
+  <select id="selectCommentByServiceBusinessId" resultType="com.zhiming.travel.cr.domain.CommentDO">
+    select * from t_comment where service_business_id = #{serviceBusinessId} limit 3
+  </select>
+  <select id="selectCommentCount" resultType="java.lang.Integer">
+    select count(comment_id) from t_comment where service_business_id = #{serviceBusinessId}
+  </select>
+</mapper>

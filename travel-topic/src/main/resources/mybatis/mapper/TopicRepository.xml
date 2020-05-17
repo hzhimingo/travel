@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiming.travel.topic.repository.TopicRepository">
+    <insert id="insertNewTopic" parameterType="com.zhiming.travel.topic.domain.TopicDO">
+        insert into t_topic (topic_id, topic_title, introduction, background)
+        value (#{topicId}, #{topicTitle}, #{introduction}, #{background})
+    </insert>
+    <select id="isTopicExist" resultType="java.lang.Integer">
+        select count(topic_id) where topic_id = #{topicId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_topic
+    where topic_id = #{topicId,jdbcType=BIGINT}
+  </delete>
+    <select id="isTopicsExist" parameterType="list" resultType="java.lang.Integer">
+        select count(topic_id) from where topic_id in
+        <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+    <select id="selectTopicCover" resultType="com.zhiming.travel.topic.domain.TopicDO">
+        select topic_id, topic_title
+        from t_topic
+        <where>
+            <if test="record.isHot != null">
+                is_hot = #{record.isHot}
+            </if>
+        </where>
+        LIMIT #{boundary}, #{offset}
+    </select>
+    <select id="selectTopicById" resultType="com.zhiming.travel.topic.domain.TopicDO">
+        select * from t_topic where topic_id = #{topicId} and is_delete = 0
+    </select>
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiming.travel.spot.repository.RegionRepository">
+  <resultMap id="BaseResultMap" type="com.zhiming.travel.spot.domain.RegionDO">
+    <id column="region_id" jdbcType="INTEGER" property="regionId" />
+    <result column="region_no" jdbcType="INTEGER" property="regionNo" />
+    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
+    <result column="parent" jdbcType="INTEGER" property="parent" />
+    <result column="country" jdbcType="INTEGER" property="country" />
+    <result column="type" jdbcType="BOOLEAN" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    region_id, region_no, region_name, parent, country, `type`, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_region
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </select>
+    <select id="selectNameById" resultType="java.lang.String">
+      select region_name from t_region where region_id = #{regionId}
+    </select>
+  <select id="selectByCity" resultType="com.zhiming.travel.spot.domain.RegionDO">
+    select * from t_region where region_id = #{regionId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_region
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="region_id" keyProperty="regionId" parameterType="com.zhiming.travel.spot.domain.RegionDO" useGeneratedKeys="true">
+    insert into t_region (region_no, region_name, parent, 
+      country, `type`, create_time, 
+      update_time)
+    values (#{regionNo,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, #{parent,jdbcType=INTEGER}, 
+      #{country,jdbcType=INTEGER}, #{type,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="region_id" keyProperty="regionId" parameterType="com.zhiming.travel.spot.domain.RegionDO" useGeneratedKeys="true">
+    insert into t_region
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="regionNo != null">
+        region_no,
+      </if>
+      <if test="regionName != null">
+        region_name,
+      </if>
+      <if test="parent != null">
+        parent,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="regionNo != null">
+        #{regionNo,jdbcType=INTEGER},
+      </if>
+      <if test="regionName != null">
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null">
+        #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiming.travel.spot.domain.RegionDO">
+    update t_region
+    <set>
+      <if test="regionNo != null">
+        region_no = #{regionNo,jdbcType=INTEGER},
+      </if>
+      <if test="regionName != null">
+        region_name = #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null">
+        parent = #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiming.travel.spot.domain.RegionDO">
+    update t_region
+    set region_no = #{regionNo,jdbcType=INTEGER},
+      region_name = #{regionName,jdbcType=VARCHAR},
+      parent = #{parent,jdbcType=INTEGER},
+      country = #{country,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </update>
+</mapper>

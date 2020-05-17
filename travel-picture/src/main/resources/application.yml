@@ -1,0 +1,32 @@
+server:
+  port: 8102
+spring:
+  application:
+    name: travel-picture-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/travel?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.zhiming.travel.travel.domain
+  configuration:
+    map-underscore-to-camel-case: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8100/eureka/
+travel:
+  service:
+    serviceId: 2
+    machineId: 1
+aliYun:
+  oss:
+    endpoint: "http://oss-cn-beijing.aliyuncs.com"
+    accessKeyId: "LTAI4Fdr6G2yESJJtkKawXGj"
+    accessKeySecret: "XgtR4NZujCb9kBUVVXUY9oWX6rxs5m"
+    bucketName: "travel-picture"

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiming.travel.spot.repository.SpotPictureRepository">
+
+  <insert id="insertMany">
+    insert into t_spot_picture (spot_id, picture_id, is_cover)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.spotId}, #{item.pictureId}, #{item.isCover})
+    </foreach>
+  </insert>
+  <select id="selectCoverPictureId" resultType="java.lang.Long">
+    select picture_id from t_spot_picture where spot_id = #{spotId} and is_cover = 1
+  </select>
+  <select id="selectPictureBySpot" resultType="java.lang.Long">
+    select picture_id from t_spot_picture where spot_id = #{spotId}
+  </select>
+</mapper>

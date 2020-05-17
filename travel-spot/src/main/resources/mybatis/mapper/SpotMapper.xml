@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiming.travel.spot.repository.SpotRepository">
+
+    <insert id="insertNewSpot">
+        insert into t_spot
+        (   spot_id, spot_name, `type`, country, province, city, area, introduction, address,
+            latitude, longitude, keywords
+        )
+        value (
+            #{spotId}, #{spotName}, #{type}, #{country}, #{province}, #{city},
+            #{area}, #{introduction}, #{address}, #{latitude},
+            #{longitude}, #{keywords}
+        )
+    </insert>
+    <update id="updateSpot">
+
+    </update>
+    <select id="selectBySpotId" resultType="com.zhiming.travel.spot.domain.SpotDO">
+        select * from t_spot where spot_id = #{spotId}
+    </select>
+    <select id="selectSpot" resultType="com.zhiming.travel.spot.domain.SpotDO">
+        select spot_id, spot_name, area, score, keywords
+        from t_spot
+        <where>
+            <if test="query.type != null">
+                type = #{query.type},
+            </if>
+            <if test="query.country != null">
+                country = #{query.country},
+            </if>
+            <if test="query.province != null">
+                province = #{query.province},
+            </if>
+            <if test="query.city != null">
+                city = #{query.city},
+            </if>
+            <if test="query.area != null">
+                area = #{query.area},
+            </if>
+            <if test="query.area != null">
+                is_hot = #{query.isHot},
+            </if>
+            <if test="query.area != null">
+                status = #{query.status},
+            </if>
+        </where>
+        LIMIT #{boundary}, #{offset}
+    </select>
+    <select id="isSpotExist" resultType="java.lang.Integer">
+        select count(spot_id) from t_spot where spot_id = #{spotId}
+    </select>
+    <select id="selectSpotName" resultType="java.lang.String">
+        select spot_name from t_spot where spot_id = #{spotId}
+    </select>
+    <select id="selectSpotByCity" resultType="com.zhiming.travel.spot.domain.SpotDO">
+        select * from t_spot where city = #{cityId}
+    </select>
+</mapper>

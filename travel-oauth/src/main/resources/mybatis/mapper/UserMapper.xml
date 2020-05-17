@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiming.travel.oauth.repository.UserRepository">
+    <select id="selectUserByMobile" resultType="com.zhiming.travel.oauth.domain.UserDO">
+        select * from t_user where telephone = #{mobile} and is_delete = 0
+    </select>
+    <select id="selectUserByMobileAndPwd" resultType="com.zhiming.travel.oauth.domain.UserDO">
+        select * from t_user where telephone = #{mobile} and password = #{password} and is_delete = 0
+    </select>
+    <select id="selectUserByEmail" resultType="com.zhiming.travel.oauth.domain.UserDO">
+        select * from t_user where email = #{email} and is_delete = 0
+    </select>
+</mapper>

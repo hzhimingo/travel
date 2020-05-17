@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiming.travel.moment.repository.MomentRepository">
+  <insert id="insertNewMoment" parameterType="com.zhiming.travel.moment.domain.MomentDO">
+        insert into t_moment (moment_id, title, content, country, city, spot, author) value
+        (#{momentId}, #{title}, #{content}, #{country}, #{city}, #{spot}, #{author})
+    </insert>
+  <update id="updateMomentStatusToDisable">
+        update t_moment set status = 1 where moment_id = #{momentId}
+    </update>
+  <update id="updateMomentStatusToNormal">
+        update t_moment set status = 0 where moment_id = #{momentId}
+    </update>
+  <update id="deleteMomentById">
+        update t_moment set is_delete = 1 where moment_id = #{momentId}
+    </update>
+  <update id="updateMomentInfo" parameterType="com.zhiming.travel.moment.domain.MomentDO">
+    update t_moment
+    <set>
+      <if test="isHot != null">is_hot = #{isHot}</if>
+    </set>
+    where moment_id = #{moment_id}
+  </update>
+  <select id="isMomentExist" resultType="int">
+        select count(moment_id) from t_moment where moment_id = #{moment_id} and is_delete = 0
+   </select>
+  <select id="selectMomentById" resultType="com.zhiming.travel.moment.domain.MomentDO">
+         select * from t_moment where moment_id = #{momentId} and is_delete = 0
+    </select>
+  <select id="selectMomentCover" resultType="com.zhiming.travel.moment.domain.MomentDO">
+    select moment_id, title, content, author, country, city, spot, create_time
+    from t_moment
+    <where>
+      <if test="record.isHot != null">
+        is_hot = #{record.isHot},
+      </if>
+      <if test="record.country != null">
+        and country = #{country.gender},
+      </if>
+      <if test="record.city != null">
+        and city = #{record.city},
+      </if>
+    </where>
+    LIMIT #{boundary}, #{offset}
+  </select>
+</mapper>

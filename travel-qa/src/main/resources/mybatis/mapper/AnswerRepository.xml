@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiming.travel.qa.repository.AnswerRepository">
+  <resultMap id="BaseResultMap" type="com.zhiming.travel.qa.domain.AnswerDO">
+    <id column="answer_id" jdbcType="BIGINT" property="answerId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="question" jdbcType="BIGINT" property="question" />
+    <result column="author" jdbcType="BIGINT" property="author" />
+    <result column="is_hot" jdbcType="BOOLEAN" property="isHot" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+    <result column="status" jdbcType="BOOLEAN" property="status" />
+    <result column="is_delete" jdbcType="BOOLEAN" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    answer_id, content, question, author, is_hot, weight, `status`, is_delete, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_answer
+    where answer_id = #{answerId,jdbcType=BIGINT}
+  </select>
+    <select id="selectAnswerByQuestionId" resultType="com.zhiming.travel.qa.domain.AnswerDO">
+      select * from t_answer where question = #{questionId} and status = 0 and is_delete = 0 limit 1
+    </select>
+  <select id="selectAnswerCovers" resultType="com.zhiming.travel.qa.domain.AnswerDO">
+    select * from t_answer
+    <where>
+      <if test="record.question != null">
+        question = #{record.question} and
+      </if>
+      <if test="record.status != null">
+        status = #{record.status} and
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete}
+      </if>
+    </where>
+    LIMIT #{boundary}, #{offset}
+  </select>
+    <select id="selectAnswerCount" resultType="java.lang.Integer">
+      select count(answer_id) from t_answer where question = #{questionId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_answer
+    where answer_id = #{answerId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zhiming.travel.qa.domain.AnswerDO" useGeneratedKeys="true">
+    insert into t_answer (answer_id, content, question, author)
+    value (#{answerId}, #{content}, #{question}, #{author})
+  </insert>
+  <insert id="insertSelective" keyColumn="answer_id" keyProperty="answerId" parameterType="com.zhiming.travel.qa.domain.AnswerDO" useGeneratedKeys="true">
+    insert into t_answer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="content != null">
+        content,
+      </if>
+      <if test="question != null">
+        question,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="isHot != null">
+        is_hot,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="question != null">
+        #{question,jdbcType=BIGINT},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=BIGINT},
+      </if>
+      <if test="isHot != null">
+        #{isHot,jdbcType=BOOLEAN},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BOOLEAN},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiming.travel.qa.domain.AnswerDO">
+    update t_answer
+    <set>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="question != null">
+        question = #{question,jdbcType=BIGINT},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=BIGINT},
+      </if>
+      <if test="isHot != null">
+        is_hot = #{isHot,jdbcType=BOOLEAN},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BOOLEAN},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where answer_id = #{answerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiming.travel.qa.domain.AnswerDO">
+    update t_answer
+    set content = #{content,jdbcType=VARCHAR},
+      question = #{question,jdbcType=BIGINT},
+      author = #{author,jdbcType=BIGINT},
+      is_hot = #{isHot,jdbcType=BOOLEAN},
+      weight = #{weight,jdbcType=DOUBLE},
+      `status` = #{status,jdbcType=BOOLEAN},
+      is_delete = #{isDelete,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where answer_id = #{answerId,jdbcType=BIGINT}
+  </update>
+</mapper>
