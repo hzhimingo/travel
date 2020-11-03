@@ -26,7 +26,7 @@ travel:
     machineId: 1
 aliYun:
   oss:
-    endpoint: "http://oss-cn-beijing.aliyuncs.com"
-    accessKeyId: "LTAI4Fdr6G2yESJJtkKawXGj"
-    accessKeySecret: "XgtR4NZujCb9kBUVVXUY9oWX6rxs5m"
+    endpoint: "http://oss-cn-xxxxxx.aliyuncs.com"
+    accessKeyId: "**********************"
+    accessKeySecret: "**********************"
     bucketName: "travel-picture"
